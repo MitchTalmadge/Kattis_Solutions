@@ -1,19 +1,19 @@
 import sys
+import bisect
 
 
 def choose_cookie(cookies: list):
     """ Picks a cookie to send for packaging.
-    Sorts list, then removes from list after selecting.
+    Removes from list after selecting.
     :returns The cookie selected for packaging.
     """
-    cookies.sort()
-
     if len(cookies) % 2 == 0:
-        cookie = cookies[int((len(cookies) / 2) + 1) - 1]
+        cookie_index = int((len(cookies) / 2) + 1) - 1
     else:
-        cookie = cookies[int((len(cookies) + 1) / 2) - 1]
+        cookie_index = int((len(cookies) + 1) / 2) - 1
 
-    cookies.remove(cookie)
+    cookie = cookies[cookie_index]
+    del cookies[cookie_index]
     return cookie
 
 
@@ -25,4 +25,4 @@ for line in sys.stdin:
     else:
         # Add a cookie to the list
         diam = int(line)
-        cookies.append(diam)
+        bisect.insort(cookies, diam)
